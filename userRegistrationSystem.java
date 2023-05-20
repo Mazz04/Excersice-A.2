@@ -49,12 +49,23 @@ public class userRegistrationSystem {
 
         for (int i = 1; i <= count; i++) {
             System.out.println("Register User #" + i);
-            System.out.print("Enter name > ");
-            String name = scanner.nextLine();
-            System.out.print("Enter ID > ");
-            String id = scanner.nextLine();
-            System.out.print("Enter position > ");
-            String position = scanner.nextLine();
+            String name = "";
+            while (name.isEmpty()) {
+                System.out.print("Enter name > ");
+                name = scanner.nextLine();
+            }
+
+            String id = "";
+            while (id.isEmpty() || !id.matches("\\d+")) {
+                System.out.print("Enter ID (numbers only) > ");
+                id = scanner.nextLine();
+            }
+
+            String position = "";
+            while (position.isEmpty()) {
+                System.out.print("Enter position > ");
+                position = scanner.nextLine();
+            }
 
             User user = new User(name, id, position);
             userList.add(user);
@@ -62,6 +73,11 @@ public class userRegistrationSystem {
         }
     }
     private static void viewUsers() {
+        if (userList.isEmpty()) {
+            System.out.println("No data found in the list.\n");
+            return;
+        }
+
         System.out.println("List of users:");
         for (User user : userList) {
             System.out.println(user.getName());
@@ -71,6 +87,11 @@ public class userRegistrationSystem {
         }
     }
     private static void removeUser() {
+        if (userList.isEmpty()) {
+            System.out.println("No data found in the list.\n");
+            return;
+        }
+
         System.out.println("Remove user:");
         int index = 1;
         for (User user : userList) {
@@ -82,11 +103,11 @@ public class userRegistrationSystem {
 
         if (userIndex >= 1 && userIndex <= userList.size()) {
             User removedUser = userList.remove(userIndex - 1);
-            System.out.println("Are you sure you want to delete user #" + userIndex + " " + removedUser.getName() + "? (Yes/No) > ");
+            System.out.println("Are you sure you want to delete user #" + userIndex + " " + removedUser.getName() + "? (Y/n) > ");
             scanner.nextLine(); // Consume newline character
             String confirmation = scanner.nextLine();
 
-            if (confirmation.equalsIgnoreCase("Yes")) {
+            if (confirmation.equalsIgnoreCase("Y")) {
                 System.out.println("User #" + userIndex + " " + removedUser.getName() + " deleted successfully.\n");
             } else {
                 userList.add(userIndex - 1, removedUser);
