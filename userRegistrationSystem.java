@@ -45,7 +45,7 @@ public class userRegistrationSystem {
     private static void registerUser() {
         System.out.print("Enter the number of users to register: ");
         int count = scanner.nextInt();
-        scanner.nextLine(); // Consume newline character
+        scanner.nextLine();
 
         for (int i = 1; i <= count; i++) {
             System.out.println("Register User #" + i);
@@ -57,7 +57,7 @@ public class userRegistrationSystem {
 
             String id = "";
             while (id.isEmpty() || !id.matches("\\d+")) {
-                System.out.print("Enter ID (numbers only) > ");
+                System.out.print("Enter ID > ");
                 id = scanner.nextLine();
             }
 
@@ -103,11 +103,11 @@ public class userRegistrationSystem {
 
         if (userIndex >= 1 && userIndex <= userList.size()) {
             User removedUser = userList.remove(userIndex - 1);
-            System.out.println("Are you sure you want to delete user #" + userIndex + " " + removedUser.getName() + "? (Y/n) > ");
-            scanner.nextLine(); // Consume newline character
+            System.out.println("Are you sure you want to delete user #" + userIndex + " " + removedUser.getName() + "? (Yes/No) > ");
+            scanner.nextLine();
             String confirmation = scanner.nextLine();
 
-            if (confirmation.equalsIgnoreCase("Y")) {
+            if (confirmation.equalsIgnoreCase("Yes")) {
                 System.out.println("User #" + userIndex + " " + removedUser.getName() + " deleted successfully.\n");
             } else {
                 userList.add(userIndex - 1, removedUser);
