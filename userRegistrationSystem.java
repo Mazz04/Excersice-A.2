@@ -63,29 +63,33 @@ public class userRegistrationSystem {
     }
     private static void viewUsers() {
         System.out.println("List of users:");
+        int index = 1;
         for (User user : userList) {
-            System.out.println(user.getName());
-            System.out.println(user.getId());
-            System.out.println(user.getPosition());
+            System.out.println("#" + index);
+            System.out.println(user.getName() + " / " + user.getId());
             System.out.println();
+            index++;
         }
     }
     private static void removeUser() {
-        System.out.print("Enter the user ID to remove: ");
-        String id = scanner.next();
-        boolean removed = false;
+        viewUsers();
+        System.out.print("Delete user > ");
+        int userIndex = scanner.nextInt();
 
-        for (User user : userList) {
-            if (user.getId().equals(id)) {
-                userList.remove(user);
-                removed = true;
-                break;
+        if (userIndex >= 1 && userIndex <= userList.size()) {
+            User removedUser = userList.remove(userIndex - 1);
+            System.out.println("Are you sure you want to delete user #" + userIndex + " " + removedUser.getName() + "? (Yes/No) > ");
+            scanner.nextLine(); // Consume newline character
+            String confirmation = scanner.nextLine();
+
+            if (confirmation.equalsIgnoreCase("Yes")) {
+                System.out.println("User #" + userIndex + " " + removedUser.getName() + " deleted successfully.\n");
+            } else {
+                userList.add(userIndex - 1, removedUser);
+                System.out.println("Deletion canceled. User #" + userIndex + " " + removedUser.getName() + " restored.\n");
             }
-        }
-        if (removed) {
-            System.out.println("User with ID " + id + " removed successfully.\n");
         } else {
-            System.out.println("User with ID " + id + " not found.\n");
+            System.out.println("Invalid user index.\n");
         }
     }
     private static class User {
