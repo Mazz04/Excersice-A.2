@@ -3,8 +3,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class userRegistrationSystem {
-    private static List<User> userList = new ArrayList<>();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final List<User> userList = new ArrayList<>();
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         boolean exit = false;
@@ -63,16 +63,20 @@ public class userRegistrationSystem {
     }
     private static void viewUsers() {
         System.out.println("List of users:");
-        int index = 1;
         for (User user : userList) {
-            System.out.println("#" + index);
-            System.out.println(user.getName() + " / " + user.getId());
+            System.out.println(user.getName());
+            System.out.println(user.getId());
+            System.out.println(user.getPosition());
             System.out.println();
-            index++;
         }
     }
     private static void removeUser() {
-        viewUsers();
+        System.out.println("Remove user:");
+        int index = 1;
+        for (User user : userList) {
+            System.out.println("#" + index + ": " + user.getName() + " / " + user.getId());
+            index++;
+        }
         System.out.print("Delete user > ");
         int userIndex = scanner.nextInt();
 
@@ -93,9 +97,9 @@ public class userRegistrationSystem {
         }
     }
     private static class User {
-        private String name;
-        private String id;
-        private String position;
+        private final String name;
+        private final String id;
+        private final String position;
         public User(String name, String id, String position) {
             this.name = name;
             this.id = id;
